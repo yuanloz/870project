@@ -1,0 +1,21 @@
+steps:
+# Step 1: Set up PHP environment
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['run', '--rm', '-v', '$(pwd)/workspace', '-w', '/workspace', 'php:7.4-cli', 'bash', '-c', 'composer install']
+
+# Step 2: Run SonarScanner
+- name: 'sonarsource/sonar-scanner-cli:latest'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      sonar-scanner \
+      -Dsonar.projectKey=870sql \
+      -Dsonar.organization=870sql \
+      -Dsonar.sources=. \
+      -Dsonar.host.url=https://sonarcloud.io \
+      -Dsonar.login=${SONAR_TOKEN}
+
+# Define substitutions
+substitutions:
+  _SONAR_TOKEN: '<e049216f5566c052c06609bc9af942910612758f>'
