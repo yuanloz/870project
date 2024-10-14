@@ -19,3 +19,8 @@ steps:
 # Define substitutions
 substitutions:
   _SONAR_TOKEN: '<e049216f5566c052c06609bc9af942910612758f>'
+
+secrets:
+- kmsKeyName: projects/animated-sign-437321-u9/locations/global/keyRings/ci-keys/cryptoKeys/sonar-key
+  secretEnv:
+    SONAR_TOKEN: projects/YOUR_PROJECT_ID/secrets/sonar-token/versions/latest
